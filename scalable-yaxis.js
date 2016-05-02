@@ -53,7 +53,7 @@
                     .attr({
                         fill: '#000',
                         stroke: 'red',
-                        strokeWidth: 2,
+                        'stroke-width': 2,
                         opacity: 0.5,
                         zIndex: 8
                     })

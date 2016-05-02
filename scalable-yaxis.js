@@ -41,9 +41,10 @@
                 downYValue;
 
             if (scalable) {
-                bBoxWidth = 10;
+                bBoxWidth = 40;
                 bBoxHeight = chart.containerHeight - yAxis.top - yAxis.bottom;
                 bBoxX = yAxis.opposite ? (labels.align === 'left' ? chart.containerWidth - yAxis.right : chart.containerWidth - (yAxis.right + bBoxWidth)) : (labels.align === 'left' ? yAxis.left : yAxis.left - bBoxWidth);
+                bBoxX += index * bBoxWidth;
                 bBoxY = yAxis.top;
 
                 // Render an invisible bounding box around the y-axis label group

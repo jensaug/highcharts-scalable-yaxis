@@ -51,8 +51,10 @@
                 // This is where we add mousedown event to start dragging
                 labelGroupBBox = renderer.rect(bBoxX, bBoxY, bBoxWidth, bBoxHeight)
                     .attr({
-                        fill: '#fff',
-                        opacity: 0,
+                        fill: '#000',
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        opacity: 0.5,
                         zIndex: 8
                     })
                     .css({

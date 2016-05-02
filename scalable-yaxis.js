@@ -27,7 +27,7 @@
             renderer = chart.renderer,
             yAxes = chart.yAxis;
 
-        each(yAxes, function (yAxis) {
+        each(yAxes, function (yAxis, index) {
             var options = yAxis.options,
                 scalable = options.scalable === undefined ? true : options.scalable,
                 labels = options.labels,
@@ -41,7 +41,7 @@
                 downYValue;
 
             if (scalable) {
-                bBoxWidth = 40;
+                bBoxWidth = 10;
                 bBoxHeight = chart.containerHeight - yAxis.top - yAxis.bottom;
                 bBoxX = yAxis.opposite ? (labels.align === 'left' ? chart.containerWidth - yAxis.right : chart.containerWidth - (yAxis.right + bBoxWidth)) : (labels.align === 'left' ? yAxis.left : yAxis.left - bBoxWidth);
                 bBoxY = yAxis.top;

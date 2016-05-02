@@ -25,9 +25,9 @@
 
         var chart = this,
             renderer = chart.renderer,
-            yAxis = chart.yAxis;
+            yAxes = chart.yAxis;
 
-        each(yAxis, function (yAxis) {
+        each(yAxes, function (yAxis) {
             var options = yAxis.options,
                 scalable = options.scalable === undefined ? true : options.scalable,
                 labels = options.labels,

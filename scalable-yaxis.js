@@ -126,6 +126,8 @@
                             //console.log('deltadrag: ' + (dragYValue - downYValue));
                             //newMax = newMax > dataMax ? newMax : dataMax; //limit
                             newMin = min;
+                            newMax = max - (dragYValue - downYValue);
+                            newMax = newMax > dataMax ? newMax : dataMax; //limit
                         } else {
                             // update min extreme only if dragged from lower portion
                             newMin = min - (dragYValue - downYValue);

@@ -89,8 +89,8 @@
                     mousedownYAxis = yAxis;
                     previousYPixels = downYPixels;
                     //previousMax = mousedownYAxis.toValue(downYPixels);
-                    previousMin = mousedownYAxis.getExtremes().dataMin;
-                    previousMax = mousedownYAxis.getExtremes().dataMax;
+                    //previousMin = mousedownYAxis.getExtremes().dataMin;
+                    //previousMax = mousedownYAxis.getExtremes().dataMax;
                     isUpperPortion = mousedownYAxis.toValue(downYPixels) > (mousedownYAxis.getExtremes().dataMin + mousedownYAxis.getExtremes().dataMax) / 2;
                     console.log('isUpperPortion: ' + isUpperPortion);
                 });
@@ -119,31 +119,33 @@
 
                         console.log('isDownward: ' + isDownward);
 
-                        if (isUpperPortion) {
-                            // update max extreme only if dragged from upper portion
-                            //newMax = max - (dragYValue - downYValue);
-                            newMax = isDownward ? Math.min(previousMax, max - deltaValue) : Math.max(previousMax, max - deltaValue);
-                            //console.log('deltadrag: ' + (dragYValue - downYValue));
-                            //newMax = newMax > dataMax ? newMax : dataMax; //limit
-                            newMin = min;
-//                            newMax = max - (dragYValue - downYValue);
-//                            newMax = newMax > dataMax ? newMax : dataMax; //limit
-                        } else {
-                            // update min extreme only if dragged from lower portion
-                            newMin = isDownward ? Math.min(previousMin, min - deltaValue) : Math.max(previousMin, min - deltaValue);
-                            //newMin = min - (dragYValue - downYValue);
-                            //newMin = newMin < dataMin ? newMin : dataMin; //limit
-                            newMax = max;
-                        }
-                        if (newMax !== previousMax || newMin !== previousMax) {
-                            console.log('deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
-                            mousedownYAxis.setExtremes(newMin, newMax, true, animation);
-                            //Remember these
-                            previousYPixels = dragYPixels;
-                            previousMin = newMin;
-                            previousMax = newMax;
-                        } else {
-                            console.log('Ignoring newMax ' + newMax + ' and newMin ' + newMin);
+                        if (deltaValue !== 0) {
+                            if (isUpperPortion) {
+                                // update max extreme only if dragged from upper portion
+                                //newMax = max - (dragYValue - downYValue);
+                                newMax = isDownward ? Math.min(previousMax || max, max + deltaValue) : Math.max(previousMax || max, max + deltaValue);
+                                //console.log('deltadrag: ' + (dragYValue - downYValue));
+                                //newMax = newMax > dataMax ? newMax : dataMax; //limit
+                                newMin = min;
+    //                            newMax = max - (dragYValue - downYValue);
+    //                            newMax = newMax > dataMax ? newMax : dataMax; //limit
+                            } else {
+                                // update min extreme only if dragged from lower portion
+                                newMin = isDownward ? Math.min(previousMin, min - deltaValue) : Math.max(previousMin, min - deltaValue);
+                                //newMin = min - (dragYValue - downYValue);
+                                //newMin = newMin < dataMin ? newMin : dataMin; //limit
+                                newMax = max;
+                            }
+                            if (newMax !== previousMax || newMin !== previousMin) {
+                                console.log('deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
+                                mousedownYAxis.setExtremes(newMin, newMax, true, animation);
+                                //Remember these
+                                previousYPixels = dragYPixels;
+                                previousMin = newMin;
+                                previousMax = newMax;
+                            } else {
+                                console.log('Ignoring newMax ' + newMax + ' and newMin ' + newMin);
+                            }
                         }
                     }
                 });

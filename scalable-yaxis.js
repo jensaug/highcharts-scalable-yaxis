@@ -123,7 +123,7 @@
                             if (isUpperPortion) {
                                 // update max extreme only if dragged from upper portion
                                 //newMax = max - (dragYValue - downYValue);
-                                newMax = isDownward ? Math.min(previousMax || max, max + deltaValue) : Math.max(previousMax || max, max + deltaValue);
+                                newMax = isDownward ? Math.max(previousMax || max, max - deltaValue) : Math.min(previousMax || max, max - deltaValue);
                                 //console.log('deltadrag: ' + (dragYValue - downYValue));
                                 //newMax = newMax > dataMax ? newMax : dataMax; //limit
                                 newMin = min;

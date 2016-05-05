@@ -130,7 +130,7 @@
 //                            newMax = newMax > dataMax ? newMax : dataMax; //limit
                         } else {
                             // update min extreme only if dragged from lower portion
-                            newMin = isDownward ? Math.min(previousMin, min - deltaValue) : Max.max(previousMin, min - deltaValue);
+                            newMin = isDownward ? Math.min(previousMin, min - deltaValue) : Math.max(previousMin, min - deltaValue);
                             //newMin = min - (dragYValue - downYValue);
                             //newMin = newMin < dataMin ? newMin : dataMin; //limit
                             newMax = max;

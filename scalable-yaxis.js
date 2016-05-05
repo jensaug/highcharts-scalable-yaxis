@@ -117,7 +117,7 @@
                             isDownward = (dragYPixels - previousYPixels > 0 ? true : false),
                             deltaValue = dragYValue - downYValue;
 
-                        console.log('isDownward: ' + isDownward);
+                        //console.log('isDownward: ' + isDownward);
 
                         if (deltaValue !== 0) {
                             if (isUpperPortion) {
@@ -144,7 +144,7 @@
                                 previousMin = newMin;
                                 previousMax = newMax;
                             } else {
-                                console.log('Ignoring newMax ' + newMax + ' and newMin ' + newMin);
+                                //console.log('Ignoring newMax ' + newMax + ' and newMin ' + newMin);
                             }
                         }
                     }

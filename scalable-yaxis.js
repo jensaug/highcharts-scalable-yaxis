@@ -154,7 +154,7 @@
                                 //console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
                                 mousedownYAxis.max = newMax;
                                 mousedownYAxis.update();
-                                mousedownYAxis.setExtremes(newMin, newMax, true, false);
+                                //mousedownYAxis.setExtremes(newMin, newMax, true, false);
                                 //Remember these
                                 previousYPixels = dragYPixels;
                                 previousMin = newMin;

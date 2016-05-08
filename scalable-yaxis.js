@@ -47,7 +47,8 @@
                 bBoxHeight,
                 isDragging = false,
                 downYPixels,
-                downYValue;
+                downYValue,
+                downMax;
 
             if (scalable) {
                 bBoxWidth = 60;
@@ -85,6 +86,7 @@
                 addEvent(labelGroupBBox.element, 'mousedown', function (e) {
                     downYPixels = pointer.normalize(e).chartY;
                     downYValue = yAxis.toValue(downYPixels);
+                    downMax = mousedownYAxis.getExtremes().userMax || mousedownYAxis.getExtremes().dataMax;
 
                     isDragging = true;
                     mousedownYAxis = yAxis;
@@ -113,9 +115,9 @@
                             max = userMax !== undefined ? userMax : dataMax,
                             newMin,
                             newMax,
-                            isDownward = (dragYPixels - previousYPixels > 0 ? true : false);
+                            isDownward = (dragYPixels - previousYPixels > 0 ? true : false),
                             //deltaValue = dragYValue - downYValue;
-                            deltaValue = mousedownYAxis.toValue(dragYPixels) - mousedownYAxis.toValue(downYPixels)
+                            deltaValue = mousedownYAxis.toValue(dragYPixels) - downYValue;
 
                             //previousMin = previousMin || min;
                             //previousMax = previousMax || max;
@@ -130,7 +132,8 @@
 
                                 // update max extreme only if dragged from upper portion
                                 //newMax = max - (dragYValue - downYValue);
-                                newMax = downYValue - deltaValue;
+                                newMax = downMax - deltaValue;
+                                console.log('deltaValue ' + deltaValue + ', newMax ' + newMax);
                                 //newMax = isDownward ? Math.max(previousMax, max - deltaValue) : Math.min(previousMax, max - deltaValue);
                                 //console.log('deltadrag: ' + (dragYValue - downYValue));
                                 //newMax = newMax > dataMax ? newMax : dataMax; //limit

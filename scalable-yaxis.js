@@ -112,7 +112,8 @@
                             newMin,
                             newMax,
                             isDownward = (dragYPixels - previousYPixels > 0 ? true : false),
-                            deltaValue = dragYValue - downYValue;
+                            //deltaValue = dragYValue - downYValue;
+                            deltaValue = mousedownYAxis.toValue(dragYPixels) - mousedownYAxis.toValue(previousYPixels)
 
                             //previousMin = previousMin || min;
                             //previousMax = previousMax || max;
@@ -121,7 +122,9 @@
 
                         if (deltaValue !== 0) {
                             console.log('Previous max ' + previousMax + ', min ' + previousMin);
+
                             if (isUpperPortion) {
+                                var
                                 // update max extreme only if dragged from upper portion
                                 //newMax = max - (dragYValue - downYValue);
                                 newMax = isDownward ? Math.max(previousMax, max - deltaValue) : Math.min(previousMax, max - deltaValue);

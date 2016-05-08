@@ -89,7 +89,8 @@
 
                     downYPixels = pointer.normalize(e).chartY;
                     downYValue = yAxis.toValue(downYPixels);
-                    downMax = mousedownYAxis.getExtremes().userMax || mousedownYAxis.getExtremes().dataMax;
+                    downMax = mousedownYAxis.max;
+                    //downMax = mousedownYAxis.getExtremes().userMax || mousedownYAxis.getExtremes().dataMax;
 
 
                     previousYPixels = downYPixels;

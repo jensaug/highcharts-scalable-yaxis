@@ -113,9 +113,9 @@
                             max = userMax !== undefined ? userMax : dataMax,
                             newMin,
                             newMax,
-                            isDownward = (dragYPixels - previousYPixels > 0 ? true : false),
+                            isDownward = (dragYPixels - previousYPixels > 0 ? true : false);
                             //deltaValue = dragYValue - downYValue;
-                            deltaValue = mousedownYAxis.toValue(dragYPixels) - mousedownYAxis.toValue(previousYPixels)
+                            deltaValue = mousedownYAxis.toValue(dragYPixels) - mousedownYAxis.toValue(downYPixels)
 
                             //previousMin = previousMin || min;
                             //previousMax = previousMax || max;
@@ -123,14 +123,15 @@
                         console.log('deltaPixelDown ' + (dragYPixels - downYPixels) + ', deltaPixelPrevious ' + (dragYPixels - previousYPixels));
                         //console.log('isDownward: ' + isDownward + ' with deltaValue ' + deltaValue);
 
-                        if (deltaValue !== 0) {
+                        if (Math.abs((dragYPixels - previousYPixels)) > 0) {
+                            //Movement detected
                             //console.log('Previous max ' + previousMax + ', min ' + previousMin);
-
                             if (isUpperPortion) {
-                                var
+
                                 // update max extreme only if dragged from upper portion
                                 //newMax = max - (dragYValue - downYValue);
-                                newMax = isDownward ? Math.max(previousMax, max - deltaValue) : Math.min(previousMax, max - deltaValue);
+                                newMax = downYValue - deltaValue;
+                                //newMax = isDownward ? Math.max(previousMax, max - deltaValue) : Math.min(previousMax, max - deltaValue);
                                 //console.log('deltadrag: ' + (dragYValue - downYValue));
                                 //newMax = newMax > dataMax ? newMax : dataMax; //limit
                                 newMin = min;

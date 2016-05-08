@@ -134,7 +134,8 @@
 
                                 // update max extreme only if dragged from upper portion
                                 //newMax = max - (dragYValue - downYValue);
-                                newMax = mousedownYAxis.getExtremes().dataMax - deltaValue;
+                                //newMax = mousedownYAxis.getExtremes().dataMax - deltaValue;
+                                newMax = mousedownYAxis.max - deltaValue;
                                 console.log('deltaValue ' + deltaValue + ', newMax ' + newMax);
                                 //newMax = isDownward ? Math.max(previousMax, max - deltaValue) : Math.min(previousMax, max - deltaValue);
                                 //console.log('deltadrag: ' + (dragYValue - downYValue));
@@ -151,6 +152,8 @@
                             }
 //                            if (newMax !== previousMax || newMin !== previousMin) {
                                 //console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
+                                mousedownYAxis.max = newMax;
+                                mousedownYAxis.update();
                                 mousedownYAxis.setExtremes(newMin, newMax, true, false);
                                 //Remember these
                                 previousYPixels = dragYPixels;

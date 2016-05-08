@@ -46,6 +46,7 @@
                 bBoxWidth,
                 bBoxHeight,
                 isDragging = false,
+                downYPixels,
                 downYValue;
 
             if (scalable) {
@@ -82,15 +83,16 @@
                 labels.style.cursor = 'ns-resize';
 
                 addEvent(labelGroupBBox.element, 'mousedown', function (e) {
-                    var downYPixels = pointer.normalize(e).chartY;
-
+                    downYPixels = pointer.normalize(e).chartY;
                     downYValue = yAxis.toValue(downYPixels);
+
                     isDragging = true;
                     mousedownYAxis = yAxis;
+
                     previousYPixels = downYPixels;
-                    //previousMax = mousedownYAxis.toValue(downYPixels);
                     previousMin = mousedownYAxis.getExtremes().userMin || mousedownYAxis.getExtremes().dataMin;
                     previousMax = mousedownYAxis.getExtremes().userMax || mousedownYAxis.getExtremes().dataMax;
+
                     isUpperPortion = mousedownYAxis.toValue(downYPixels) > (mousedownYAxis.getExtremes().dataMin + mousedownYAxis.getExtremes().dataMax) / 2;
                     console.log('isUpperPortion: ' + isUpperPortion);
                 });
@@ -118,10 +120,11 @@
                             //previousMin = previousMin || min;
                             //previousMax = previousMax || max;
 
-                        console.log('isDownward: ' + isDownward + ' with deltaValue ' + deltaValue);
+                        console.log('deltaPixelDown ' + (dragYPixels - downYPixels) + ', deltaPixelPrevious ' + (dragYPixels - previousYPixels));
+                        //console.log('isDownward: ' + isDownward + ' with deltaValue ' + deltaValue);
 
                         if (deltaValue !== 0) {
-                            console.log('Previous max ' + previousMax + ', min ' + previousMin);
+                            //console.log('Previous max ' + previousMax + ', min ' + previousMin);
 
                             if (isUpperPortion) {
                                 var
@@ -141,14 +144,14 @@
                                 newMax = max;
                             }
                             if (newMax !== previousMax || newMin !== previousMin) {
-                                console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
+                                //console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
                                 mousedownYAxis.setExtremes(newMin, newMax, true, false);
                                 //Remember these
                                 previousYPixels = dragYPixels;
                                 previousMin = newMin;
                                 previousMax = newMax;
                             } else {
-                                console.log('Ignoring extremes for deltaValue ' + deltaValue + ' with newMax ' + newMax + ' and newMin ' + newMin);
+                                //console.log('Ignoring extremes for deltaValue ' + deltaValue + ' with newMax ' + newMax + ' and newMin ' + newMin);
                             }
                         }
                     }

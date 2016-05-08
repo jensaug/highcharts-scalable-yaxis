@@ -117,7 +117,7 @@
                             //previousMin = previousMin || min;
                             //previousMax = previousMax || max;
 
-                        console.log('isDownward: ' + isDownward + ' with deltaValue ' + delvaValue);
+                        console.log('isDownward: ' + isDownward + ' with deltaValue ' + deltaValue);
 
                         if (deltaValue !== 0) {
                             console.log('Previous max ' + previousMax + ', min ' + previousMin);
@@ -139,7 +139,7 @@
                             }
                             if (newMax !== previousMax || newMin !== previousMin) {
                                 console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
-                                mousedownYAxis.setExtremes(newMin, newMax, true, animation);
+                                mousedownYAxis.setExtremes(newMin, newMax, true, false);
                                 //Remember these
                                 previousYPixels = dragYPixels;
                                 previousMin = newMin;

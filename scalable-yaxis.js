@@ -84,12 +84,13 @@
                 labels.style.cursor = 'ns-resize';
 
                 addEvent(labelGroupBBox.element, 'mousedown', function (e) {
+                    isDragging = true;
+                    mousedownYAxis = yAxis;
+
                     downYPixels = pointer.normalize(e).chartY;
                     downYValue = yAxis.toValue(downYPixels);
                     downMax = mousedownYAxis.getExtremes().userMax || mousedownYAxis.getExtremes().dataMax;
 
-                    isDragging = true;
-                    mousedownYAxis = yAxis;
 
                     previousYPixels = downYPixels;
                     previousMin = mousedownYAxis.getExtremes().userMin || mousedownYAxis.getExtremes().dataMin;
@@ -147,16 +148,16 @@
                                 //newMin = newMin < dataMin ? newMin : dataMin; //limit
                                 newMax = max;
                             }
-                            if (newMax !== previousMax || newMin !== previousMin) {
+//                            if (newMax !== previousMax || newMin !== previousMin) {
                                 //console.log('setExtremes for deltaValue: ' + deltaValue + ', newMin ' + newMin + ', newMax ' + newMax);
                                 mousedownYAxis.setExtremes(newMin, newMax, true, false);
                                 //Remember these
                                 previousYPixels = dragYPixels;
                                 previousMin = newMin;
                                 previousMax = newMax;
-                            } else {
-                                //console.log('Ignoring extremes for deltaValue ' + deltaValue + ' with newMax ' + newMax + ' and newMin ' + newMin);
-                            }
+//                            } else {
+//                                //console.log('Ignoring extremes for deltaValue ' + deltaValue + ' with newMax ' + newMax + ' and newMin ' + newMin);
+//                            }
                         }
                     }
                 });

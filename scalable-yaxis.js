@@ -26,12 +26,17 @@
         var chart = this,
             renderer = chart.renderer,
             yAxes = chart.yAxis,
-            //animation = yAxes.length <= 2 ? false : { duration: 250}, //Enables smoother but lagging redraws
-            animation = false,
-            synchYAxes = true,
+            animation = false, // { duration: 250} enables smoother but lagging redraws
+            synchYAxes = false, // if true all axes will scale simultaneously
+            keepMultipleGridLines = false, // if true, grid lines won't ever be removed
             offsetOpposite = 0,
-            offsetAdjacent = 0;           
+            offsetAdjacent = 0,
+            scalableAxes = [];           
 
+        if (chart.options.navigator && chart.options.navigator.enabled) {
+        	yAxes[yAxes.length - 1].options.scalable = false; // If navigator exists, disable scaling it (the last added axis, hopefully)
+        }
+        
         each(yAxes, function (yAxis, index) {
             var options = yAxis.options,
                 scalable = options.scalable === undefined ? true : options.scalable,
@@ -47,7 +52,11 @@
                 downYValue,
                 isUpperPortion;
 
+        	yAxis.update({showLastLabel: true}); //Always show top/last label since scaling will make distance too long
+        	
             if (scalable) {
+            	scalableAxes.push(yAxis); //Remember those who are scalable
+            	
                 bBoxWidth = 60;
                 bBoxHeight = chart.containerHeight - yAxis.top - yAxis.bottom;
                 bBoxX = yAxis.opposite ? (labels.align === 'left' ? chart.containerWidth - yAxis.right : chart.containerWidth - (yAxis.right + bBoxWidth)) : (labels.align === 'left' ? yAxis.left : yAxis.left - bBoxWidth);
@@ -92,7 +101,7 @@
                 });
 
                 addEvent(chart.container, 'mousemove', function (e) {
-                	var selectedAxes = synchYAxes ? yAxes : [yAxis],
+                	var selectedAxes = synchYAxes ? scalableAxes : [yAxis],
             			dragYPixels = chart.pointer.normalize(e).chartY,
                         dragYValue,
                         extremes,
@@ -143,7 +152,7 @@
 
                 // double-click to go back to default range
                 addEvent(labelGroupBBox.element, 'dblclick', function () {
-                	var selectedAxes = synchYAxes ? yAxes : [yAxis],
+                	var selectedAxes = synchYAxes ? scalableAxes : [yAxis],
                 			index;
                 	
                 	for (index in selectedAxes) {
@@ -152,5 +161,13 @@
                 });
             }
         });
+        
+        if (!keepMultipleGridLines && scalableAxes.length > 1) {
+            //Disable gridlines for multiple scalable axes
+            each(scalableAxes, function (yAxis, index) {
+            	yAxis.update({gridLineWidth: 0});
+            });        	
+        }
+        
     });
 }(Highcharts));
